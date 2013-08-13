@@ -1,0 +1,6 @@
+post {
+    title "K Nearest Neighbors: Simplest Machine Learning";
+    date 2013-06-08;
+    source k-nearest-neighbors-simplest-machine-learning;
+    categories machine-learning;
+}
