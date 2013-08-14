@@ -1,0 +1,28 @@
+<div>
+<article role="article">
+  $if(title)$
+  <header>
+    <h1 class="entry-title">$title$</h1>
+    $if(date)$
+    <p class="meta">
+    <time datetime="$date$" class="updated">Updated $date$</time>
+    </p>
+    $endif$
+  </header>
+  $endif$
+
+  $content$
+  $if(footer)$
+    <footer>
+      <p class="meta">
+        $categories$
+      </p>
+    </footer>
+  $endif$
+</article>
+
+</div>
+
+<aside class="sidebar">
+Sidebar
+</aside>

@@ -2,26 +2,26 @@ I've previously [written about](http://andrew.gibiansky.com/blog/categories
 /machine-learning/) a number of machine learning techniques. However, when you
 first encounter a machine learning task, what do you try? Though neural networks
 and support vector machines and deep learning are very interesting and might
-make for great writing topics, [Occam's razor](http://en.wikipedia.org/wiki/Occam's_razor) tells us that really, we
+make for great writing topics, [Occam\'s razor](http://en.wikipedia.org/wiki/Occam\'s_razor) tells us that really, we
 should be trying the simplest things first.
 
 The simplest technique in machine learning is probably something very intuitive,
-something most people wouldn't even categorize as machine learning: $$k$$-Nearest
-Neighbor classification. Using a neural network for a problem where $$k$$-nearest
+something most people wouldn't even categorize as machine learning: $k$-Nearest
+Neighbor classification. Using a neural network for a problem where $k$-nearest
 neighbors would suffice, just because neural networks are more powerful in
 general, seems analogous to the classic problem of premature optimization. In
 other words, worth avoiding.
 
-A $$k$$-nearest neighbor classifier is incredibly easy to describe: if you have a
-labeled data set $$\{x_i\}$$, and you want to classify some new item $$y$$, find the
-$$k$$ elements in your data set that are closest to $$y$$, and then somehow average
-their labels to get the label of $$y$$.
+A $k$-nearest neighbor classifier is incredibly easy to describe: if you have a
+labeled data set $\{x_i\}$, and you want to classify some new item $y$, find the
+$k$ elements in your data set that are closest to $y$, and then somehow average
+their labels to get the label of $y$.
 
 In order to implement this, all you really need to do is answer two questions:
 
-1. What is distance? Namely, if I have some $$x \in \{x_i\}$$, how do I determine
-the distance from $$x$$ to $$y$$?
-2. If I know that $$x_1, x_2, \ldots, x_k$$ are the $$k$$ nearest neighbors of $$y$$,
+1. What is distance? Namely, if I have some $x \in \{x_i\}$, how do I determine
+the distance from $x$ to $y$?
+2. If I know that $x_1, x_2, \ldots, x_k$ are the $k$ nearest neighbors of $y$,
 how do I "average their labels"?
 
 The answers to these questions depend greatly on exactly what you're dealing
@@ -30,20 +30,20 @@ define; on the other hand, if you're dealing with points in a Cartesian
 coordinate system, we can immediately use our standard Euclidean distance as a
 distance metric. If your labels are real values (and your problem is a
 regression problem), then you can literally average them to get the label of
-$$y$$; however, if your labels are classes, you may have to devise something more
-clever, such as letting the $$k$$ neighbors vote on the label of $$y$$.
+$y$; however, if your labels are classes, you may have to devise something more
+clever, such as letting the $k$ neighbors vote on the label of $y$.
 
 
 ## Handwriting Recognition with k-Nearest Neighbors
 
 
-Let's go ahead and implement $$k$$-nearest neighbors! Just like in the [neural
+Let's go ahead and implement $k$-nearest neighbors! Just like in the [neural
 networks post](http://andrew.gibiansky.com/blog/machine-learning/machine-
 learning-neural-networks), we'll use the MNIST handwritten digit database as a
-test set. You may be surprised at how well something as simple as $$k$$-nearest
+test set. You may be surprised at how well something as simple as $k$-nearest
 neighbors works on a dataset as complex as images of handwritten digits.
 
-We'll start off with a generic class for doing $$k$$-nearest neighbors.
+We'll start off with a generic class for doing $k$-nearest neighbors.
 
 
 ```python
@@ -80,19 +80,19 @@ class NearestNeighborClassifier(object):
 
 You'll immediately be able to notice two things. First of all, unlike many other
 models, we don't have any preliminary computations to do! There is no training
-phase in a $$k$$-nearest neighbor predictor; once we have the data set, we can
+phase in a $k$-nearest neighbor predictor; once we have the data set, we can
 make predictions. Also, this is a non-parametric model - we don't  have any
 structure imposed on the predictor by some fixed parameter list, but instead the
 predictions are coming straight from the data.
 
 The second thing you'll notice - possibly while cringing - is that the
-implementation above is *terribly* inefficient. If you have $$N$$ training points
-in your data set, computing the distances to each point will take $$O(N)$$ time,
-and then getting the first $$k$$ values by sorting the data set based on distance
-will take another $$O(N \lg N)$$ time, so you'll spend $$O\left(N \lg N\right) $$
+implementation above is *terribly* inefficient. If you have $N$ training points
+in your data set, computing the distances to each point will take $O(N)$ time,
+and then getting the first $k$ values by sorting the data set based on distance
+will take another $O(N \lg N)$ time, so you'll spend $O\left(N \lg N\right) $
 time *for each prediction* you want to make.
 
-This is definitely suboptimal. We can improve this to $$O(kN)$$ without much
+This is definitely suboptimal. We can improve this to $O(kN)$ without much
 difficulty, simply by mimicking the first few steps of [selection sort](http://en.wikipedia.org/wiki/Selection_sort):
 
 
@@ -127,7 +127,7 @@ NearestNeighborClassifier.predict = predict
 This is still pretty terrible - if we're predicting thousands of points and have
 a large training data set, this can become pretty slow. But let's ignore that
 for now, and actually get something running! (There are ways to improve this
-runtime, but $$O(kN)$$ is the best we can do without some pretty serious and very
+runtime, but $O(kN)$ is the best we can do without some pretty serious and very
 cool trickery.)
 
 
@@ -271,7 +271,7 @@ def euclidean_distance(img1, img2):
     return sum((img1 - img2) ** 2)
 ```
 
-One down, one to go. How are we going to take a consensus from all the $$k$$
+One down, one to go. How are we going to take a consensus from all the $k$
 neighbors? This one is easy - just let them vote. Take the majority vote as the
 right answer!
 
@@ -318,15 +318,15 @@ ks = [1, 2, 3, 4, 5, 6]
 predictors = [MNISTPredictor(dataset, k) for k in ks] 
 ```
 
-Note that we haven't really put any thought into what $$k$$ should be. Is one a
-good value? What about ten? What about a hundred? The greater $$k$$, the better
+Note that we haven't really put any thought into what $k$ should be. Is one a
+good value? What about ten? What about a hundred? The greater $k$, the better
 our predictions, right?
 
 The true answer is that we don't know. The right way to find out is through a
 method called [cross
 validation](http://www.brnt.eu/phd/node14.html#SECTION00722200000000000000), but
 right now we can just take a look at how it does for several different values of
-$$k$$.
+$k$.
 
 
 ```python
@@ -343,8 +343,8 @@ all_predictions = [predict_test_set(predictor, test_set) for predictor in predic
 
 Our classifier is way too slow to run the entire test set. Suppose we did want
 to run every image in of the ten thousand test images through the predictor.
-There are fifty thousand training images; so each prediction takes $$50000k$$
-image comparisons. We had values of $$k$$ which summed to $$1 + 3 + 5 + 10 = 16$$,
+There are fifty thousand training images; so each prediction takes $50000k$
+image comparisons. We had values of $k$ which summed to $1 + 3 + 5 + 10 = 16$,
 so *each prediction* incurs 0.8 million image comparisons. Since we would have
 had ten thousand images, that would make for a total of eight **billion** image
 comparisons.
@@ -393,7 +393,7 @@ randomly would be around 10%, our classifier is doing significantly better! But
 still, this is far from good, given the performance of neural networks in the
 [previous post](http://andrew.gibiansky.com/blog/machine-learning/machine-
 learning-neural-networks). It's interesting to note that the dependence on the
-value of $$k$$ seems pretty week, at least for the small values we're
+value of $k$ seems pretty weak, at least for the small values we're
 investigating. This is due to the pleasantly-named **[Curse of Dimensionality](http://en.wikipedia.org/wiki/Curse_of_dimensionality)**, which I
 might discuss sometime in the near future, as it's pretty much the reason that
 machine learning is Hard with a capital H.

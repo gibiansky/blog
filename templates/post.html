@@ -1,5 +1,25 @@
-<div class="info">
-    Posted on $date$
+<div>
+<article class="hentry" role="article">
+  $partial("templates/article.html")$
+  <footer>
+    <p class="meta">
+      $date$
+      $categories$
+    </p>
+
+    <p class="meta">
+      $if(previous_url)$
+        <a class="basic-alignment left" href="$previous_url$" title="Previous Post: $previous_title$">&laquo; $previous_title$</a>
+      $endif$
+      $if(next_url)$
+        <a class="basic-alignment right" href="$next_url$" title="Next Post: $next_title$">$next_title$ &raquo;</a>
+      $endif$
+    </p>
+  </footer>
+</article>
+
 </div>
 
-$body$
+<aside class="sidebar">
+Sidebar
+</aside>

@@ -1,0 +1,19 @@
+<header>
+$if(index)$
+    <h1 class="entry-title"><a href="$post_url$">$title$</a></h1>
+$else$
+    <h1 class="entry-title">$title$</h1>
+$endif$
+    <p class="meta">
+    $date$
+    </p>
+</header>
+
+$if(index)$
+  <div class="entry-content">$excerpt$</div>
+<footer>
+    <a rel="full-article" href="$post_url$">$excerpt_link$</a>
+</footer>
+$else$
+<div class="entry-content">$body$</div>
+$endif$

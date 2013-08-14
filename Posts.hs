@@ -20,14 +20,14 @@ data Post = Post {
   categories :: [Category],
   contents :: String,
   filetype :: PostType
-  }
+  } deriving Eq
 
 type Year = Int
 type Month = Int
 type Day = Int
 type Category = String
 
-data PostType = Markdown deriving Show
+data PostType = Markdown deriving (Show, Eq)
 
 -- Metadata present in post file.
 data PostMeta = PostMeta FilePath String (Year, Month, Day) [Category]
@@ -50,8 +50,8 @@ loadPosts = do
 
 readPost :: PostMeta -> IO Post
 readPost (PostMeta srcdir postname postdate postcats) = do
-  postfile <- getPostFile srcdir
-  postdata <- readFile $ srcdir ++ "/" ++ postfile
+  postfile <- getPostFile $ postsDir ++ srcdir
+  postdata <- readFile $ postsDir ++ srcdir ++ "/" ++ postfile
   return Post {
       source = srcdir,
       title = postname,
@@ -117,10 +117,7 @@ categoryParser = field "categories" $ sepBy category comma
         category = many $ letter <|> digit <|> char '-'
 
 directoryParser :: Parser FilePath
-directoryParser = field "source" $ do
-  dirname <- many1 anyChar
-  return $ postsDir ++ dirname
-
+directoryParser = field "source" $ many1 anyChar
 
 -- | Parse a generic field in the format 'field: value;'
 field :: String -> Parser a -> Parser a

@@ -3,8 +3,12 @@ import Hakyll hiding (Markdown)
 
 import Posts
 
-import Data.Monoid (mconcat)
+import Data.Monoid ((<>), mconcat)
 import Control.Monad (liftM)
+import Data.List (elemIndex, sortBy, intercalate)
+import Data.Maybe (fromJust, maybeToList)
+import Control.Applicative ((<$>))
+import Data.Function (on)
 
 import System.Locale (defaultTimeLocale)
 import Data.Time.Calendar (fromGregorian)
@@ -16,13 +20,27 @@ compileWithFilter cmd args = withItemBody (unixFilter cmd args)
 sassCompiler ::  Compiler (Item String)
 sassCompiler = do
   str <- getResourceString
-  liftM (fmap compressCss) $ compileWithFilter "sass" ["--stdin", "--scss"] str
+  liftM (fmap compressCss) $ compileWithFilter "sass" ["--stdin", "--scss", "--compass"] str
 
 markdownPost :: Item String -> Compiler (Item String)
-markdownPost = compileWithFilter "pandoc" ["-f", "markdown", "-t", "html"]
+markdownPost = compileWithFilter "pandoc" ["-f", "markdown", "-t", "html", "--mathjax"]
 
-postCompiler :: Post -> Compiler (Item String)
-postCompiler post = do
+dateCompare :: (Year, Month, Day) -> (Year, Month, Day) -> Ordering
+dateCompare (y1, m1, d1) (y2, m2, d2) = compare y1 y2 <> compare m1 m2 <> compare d1 d2
+
+blogRoot :: String
+blogRoot = "file:///Users/agibiansky/Code/fun/blog/_site"
+
+postUrl :: Post -> String
+postUrl post = blogRoot ++ "/" ++ source post
+
+globalContext ::  Context String
+globalContext = constField "google-analytics-id" "UA-40714888-1" <> 
+                constField "root" blogRoot <>
+                defaultContext
+
+postCompiler :: [Post] -> Post -> Compiler (Item String)
+postCompiler posts post = do
   -- Decide which of the compilers to use.
   let fileProcessor = case filetype post of
                         Markdown -> markdownPost     
@@ -30,26 +48,38 @@ postCompiler post = do
                     --  "html" -> htmlPost
                     --  "ipynb" -> ipythonNotebookPost
   
-  let postContext = mconcat [
-          constField "title" $ title post,
-          constField "date" $ showDate $ date post,
-          defaultContext
-          ]
+  let sortedPosts = sortBy (dateCompare `on` date) posts
+      postIndex = fromJust $ elemIndex post posts
+      previousPost =  if postIndex == 0 then Nothing else Just $ sortedPosts !! (postIndex - 1)
+      nextPost = if postIndex == length posts - 1 then Nothing else Just $ sortedPosts !! (postIndex - 1)
+      previousUrl = postUrl <$> previousPost
+      nextUrl = postUrl <$> nextPost
+      categoryList = intercalate ", " $ categories post
+      fields = [constField "title" (title post),
+                constField "date" (showDate $ date post),
+                constField "categories" categoryList] ++
+               maybeToList (constField "previousUrl" <$> previousUrl) ++
+               maybeToList (constField "nextUrl" <$> nextUrl)
 
-  makeItem (contents post) >>= fileProcessor >>= loadAndApplyTemplate "templates/post.html" postContext
-  
+  let postContext = mconcat fields <> globalContext
+
+  makeItem (contents post) >>=
+    fileProcessor >>=
+    loadAndApplyTemplate "templates/post.html" postContext >>=
+    loadAndApplyTemplate "templates/default.html" postContext
+ 
   
 showDate :: (Year, Month, Day) -> String
 showDate (year, month, day) = 
   let postDate = fromGregorian (fromIntegral year) month day in
     formatTime defaultTimeLocale "%Y-%m-%d" postDate
 
-makePost :: Post -> Rules ()
-makePost post =
-  let outpage = fromFilePath $ source post ++ "/index.html" in
+makePost :: [Post] -> Post -> Rules ()
+makePost posts post =
+  let outpage = fromFilePath $ concat [head $ categories post, "/", source post, "/index.html"] in
     create [outpage] $ do
       route idRoute
-      compile $ postCompiler post
+      compile $ postCompiler posts post
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -64,13 +94,8 @@ blog posts = do
     route   idRoute
     compile copyFileCompiler
 
-  -- Normal CSS files can be compressed.
-  match "css/**.css" $ do
-    route   idRoute
-    compile compressCssCompiler
-
   -- *.sass need to first be converted to CSS, then compressed.
-  match "css/**.scss" $ do
+  match "css/screen.scss" $ do
     -- Change extension to *.css
     route $ setExtension "css" 
     compile sassCompiler
@@ -78,13 +103,18 @@ blog posts = do
   -- Compile all templates.
   match "templates/*" $ compile templateCompiler
 
-  match "pages/*.md" $ do
-    route   $ setExtension "html"
-    compile $ pandocCompiler
-      >>= loadAndApplyTemplate "templates/default.html" defaultContext
-      >>= relativizeUrls
+  mapM_ (makePost posts) posts
 
-  mapM_ makePost posts
+---- Normal CSS files can be compressed.
+--match "css/**.css" $ do
+--  route   idRoute
+--  compile compressCssCompiler
+
+--match "pages/*.md" $ do
+--  route   $ setExtension "html"
+--  compile $ pandocCompiler
+--    >>= loadAndApplyTemplate "templates/default.html" defaultContext
+--    >>= relativizeUrls
 
 --match "posts/*" $ do
 --  route $ setExtension "html"
