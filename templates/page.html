@@ -5,24 +5,15 @@
     <h1 class="entry-title">$title$</h1>
     $if(date)$
     <p class="meta">
-    <time datetime="$date$" class="updated">Updated $date$</time>
+    <time datetime="$date$" class="updated">Updated on $date$</time>
     </p>
     $endif$
   </header>
   $endif$
 
-  $content$
-  $if(footer)$
-    <footer>
-      <p class="meta">
-        $categories$
-      </p>
-    </footer>
-  $endif$
+  $body$
 </article>
 
 </div>
 
-<aside class="sidebar">
-Sidebar
-</aside>
+$partial("templates/sidebar.html")$

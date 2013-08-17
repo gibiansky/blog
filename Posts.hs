@@ -1,17 +1,22 @@
 module Posts (
-  Post,
-  Year, Month, Day, Category, PostType (..),
-  source, title, date, categories, contents, filetype,
-  loadPosts) where
+  Post, Year, Month, Day, Category, PostType (..), source, title, date,
+  categories, contents, filetype, url, dateString, dayString, postYear,
+  postMonth, postDay, postsDir, loadPosts) where
+
+import Config
 
 import Control.Applicative ((<$>))
-
-import System.Directory
-import Data.String.Utils
+import Data.List           (sortBy)
+import Data.Monoid         ((<>))
+import Data.String.Utils   (endswith, startswith)
+import Data.Time.Calendar  (fromGregorian)
+import Data.Time.Format    (formatTime)
+import System.Directory    (getDirectoryContents)
+import System.Locale       (defaultTimeLocale)
 
 import Text.Parsec
-import Text.Parsec.String
 import Text.Parsec.Perm
+import Text.Parsec.String
 
 data Post = Post {
   source :: FilePath,
@@ -32,21 +37,43 @@ data PostType = Markdown deriving (Show, Eq)
 -- Metadata present in post file.
 data PostMeta = PostMeta FilePath String (Year, Month, Day) [Category]
 
--- | Path to the post directory.
-postsDir :: FilePath
-postsDir = "posts/"
+url :: Post -> String
+url post = blogRoot ++ "/" ++ source post
 
--- | Path to the file describing all blog posts. 
-postsFile :: FilePath
-postsFile = postsDir ++ "postlist"
+dateFmt :: String -> Post -> String
+dateFmt fmt post = 
+  let (year, month, day) = date post
+      postDate = fromGregorian (fromIntegral year) month day in
+    formatTime defaultTimeLocale fmt postDate
+
+dateString :: Post -> String
+dateString = dateFmt "%A, %B %e, %Y"
+
+dayString :: Post -> String
+dayString = dateFmt "%b %e"
+
+postYear :: Post -> Year
+postYear post = yr
+  where (yr, _, _) = date post
+
+postMonth :: Post -> Month
+postMonth post = mn
+  where (_, mn, _) = date post
+
+postDay :: Post -> Day
+postDay post = dy
+  where (_, _, dy) = date post
 
 -- | Read and parse the list of posts.
+-- | Returns a list of sorted posts, recent first.
 loadPosts :: IO [Post]
 loadPosts = do
   parsed <- parseFromFile (many1 postParser) postsFile 
   case parsed of
     Left err -> error $ show err
-    Right parsedPosts -> mapM readPost parsedPosts
+    Right parsedPosts -> 
+      let posts = mapM readPost parsedPosts in
+        sortBy compareByDate <$> posts
 
 readPost :: PostMeta -> IO Post
 readPost (PostMeta srcdir postname postdate postcats) = do
@@ -65,6 +92,14 @@ getPostType :: String -> PostType
 getPostType filename
   | endswith ".md" filename = Markdown
   | endswith ".markdown" filename = Markdown
+
+
+-- | Compare two posts by their dates.
+compareByDate :: Post -> Post -> Ordering
+compareByDate p1 p2 =
+  let (y1, m1, d1) = date p1
+      (y2, m2, d2) = date p2 in
+    compare y1 y2 <> compare m1 m2 <> compare d1 d2
 
 getPostFile :: FilePath -> IO String
 getPostFile srcdir = do

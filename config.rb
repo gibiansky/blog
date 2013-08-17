@@ -11,7 +11,7 @@ css_dir = "_site/css"
 
 # Local development paths
 sass_dir = "css"
-images_dir = "images/theme"
+images_dir = "./images/theme"
 fonts_dir = "fonts"
 
 line_comments = false

@@ -241,7 +241,7 @@ for axis, index in zip(axes, indices):
 
 ```
 
-![image](/images/posts/mnist-example-ipy.png)
+![Example of MNIST data](images/mnist-example-ipy.png)
 
 Looking good! Note that the MNIST database defines "0" to be white and "255" to
 be black. This is the opposite of what normal pixel intensities represent, which
@@ -386,7 +386,7 @@ fig.axes[0].axis([0, max(ks) + 1, 0, 1]);
 
 ```
 
-![image](/images/posts/knn-accuracies.png)
+![K-Nearest Neighbor Accuracies](images/knn-accuracies.png)
 
 Surprisingly enough, it isn't *terrible*. Considering the chance of guessing
 randomly would be around 10%, our classifier is doing significantly better! But

@@ -1,25 +1,23 @@
 <div>
 <article class="hentry" role="article">
+
   $partial("templates/article.html")$
   <footer>
     <p class="meta">
-      $date$
-      $categories$
+      $date$ - Posted in $categoryLinks$
     </p>
 
     <p class="meta">
-      $if(previous_url)$
-        <a class="basic-alignment left" href="$previous_url$" title="Previous Post: $previous_title$">&laquo; $previous_title$</a>
+      $if(previousUrl)$
+        <a class="basic-alignment left" href="$previousUrl$" title="Previous Post: $previousTitle$">&laquo; $previousTitle$</a>
       $endif$
-      $if(next_url)$
-        <a class="basic-alignment right" href="$next_url$" title="Next Post: $next_title$">$next_title$ &raquo;</a>
+      $if(nextUrl)$
+        <a class="basic-alignment right" href="$nextUrl$" title="Next Post: $nextTitle$">$nextTitle$ &raquo;</a>
       $endif$
     </p>
   </footer>
-</article>
 
+</article>
 </div>
 
-<aside class="sidebar">
-Sidebar
-</aside>
+$partial("templates/sidebar.html")$

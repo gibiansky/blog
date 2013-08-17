@@ -1,0 +1,25 @@
+<aside class="sidebar">
+  <section>
+    <h1>Contact</h1>
+
+    <p>
+      If you've got questions, comments, suggestions, or just want to talk, feel
+      free to email me at andrew.gibiansky on Gmail.
+    </p>
+
+    <img src="$root$/images/photo.jpg" alt="photo" />
+  </section>
+
+  <section>
+    <h1>Recent Posts</h1>
+
+    <ul id="recent_posts">
+      $for(recentPosts)$
+        <li class="post">
+          <a href="$root$/$url$">$title$</a>
+        </li>
+      $endfor$
+    </ul>
+
+  </section>
+</aside>

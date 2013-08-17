@@ -1,0 +1,20 @@
+<div>
+  <article role="article">
+    <header>
+      <h1 class="entry-title">$categoryName$ Posts</h1>
+    </header>
+
+    <div id="blog-archives">
+    $for(posts)$
+      $yearHeading$
+
+      <article>
+        $partial("templates/archive_post.html")$
+      </article>
+    $endfor$
+    </div>
+
+  </article>
+</div>
+
+$partial("templates/sidebar.html")$
