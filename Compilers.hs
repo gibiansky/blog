@@ -30,9 +30,17 @@ markdownPost = compileWithFilter command arguments
     command = "pandoc"
     arguments = ["-f", "markdown", "-t", "html5", "--mathjax", "--highlight-style=pygments"]
 
+-- | Compile a Latex file.
+latexPost :: Item String -> Compiler (Item String)
+latexPost = compileWithFilter command arguments
+  where 
+    command = "pandoc"
+    arguments = ["-f", "latex", "-t", "html5", "--mathjax", "--highlight-style=pygments"]
+
 -- | Get the compiler for a type of content.
 compilerFor :: PostType -> Item String -> Compiler (Item String)
 compilerFor Markdown = markdownPost
+compilerFor Latex = latexPost
 
 -- | Compile a post of any type.
 postCompiler :: [Post] -> Post -> Compiler (Item String)

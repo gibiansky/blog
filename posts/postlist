@@ -4,3 +4,24 @@ post {
     source k-nearest-neighbors-simplest-machine-learning;
     categories machine-learning;
 }
+
+post {
+    title "Image Morphing";
+    date 2011-03-02;
+    source image-morphing;
+    categories image-processing;
+}
+
+post {
+    title "Computational Fluid Dynamics";
+    date 2011-06-17;
+    source computational-fluid-dynamics;
+    categories physics, simulations;
+}
+
+post {
+    title "Fluid Dynamics: The Navier-Stokes Equations";
+    date 2011-05-07;
+    source fluid-dynamics-the-navier-stokes-equations;
+    categories physics, simulations;
+}
