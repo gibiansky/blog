@@ -1,6 +1,7 @@
 import Hakyll
 
 import Compilers
+import Config
 import Posts
 
 --------------------------------------------------------------------------------
@@ -27,7 +28,7 @@ configuration = defaultConfiguration {
     destinationDirectory = "gen",
 
     -- How to deploy to server.
-    deployCommand = "echo No deploy command created."
+    deployCommand = concat ["rsync gen/* root@", serverAddress, ":/var/www/ --progress --delete --recursive"]
   }
 
 blog :: [Post] -> Rules ()
