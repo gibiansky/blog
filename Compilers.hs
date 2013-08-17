@@ -126,6 +126,7 @@ generateArchive posts = create ["archive.html"] $ do
   compile $ do
     let context = postListContext "posts" posts <>
                   postListContext "recentPosts" posts <>
+                  constField "title" "Blog Archive" <>
                   globalContext
     makeItem ""
       >>= loadAndApplyTemplate "templates/archive.html" context

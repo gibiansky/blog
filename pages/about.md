@@ -2,9 +2,9 @@
 title: About Me
 ---
 
-I am currently a student at Harvey Mudd College, studying mathematics and
+I am currently a student at Harvey Mudd College studying mathematics and
 computational everything.  I have an extensive background in computer science,
-and I get excited about machine learning, data analysis, and mathematical
+and I get excited about machine learning, data analysis, mathematical
 modeling and simulation, as well as electrical and digital engineering. I keep
 a [sparsely-updated blog](http://andrew.gibiansky.com) about things I enjoy. My
 resumé is available upon request, and my contact info is on the right.
