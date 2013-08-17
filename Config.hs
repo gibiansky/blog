@@ -9,7 +9,7 @@ postsFile :: FilePath
 postsFile = postsDir ++ "postlist"
 
 blogRoot :: String
-blogRoot = "file:///home/silver/code/blog/gen"
+blogRoot = "http://192.241.208.143"
 
 googleAnalyticsId :: String
 googleAnalyticsId = "UA-40714888-1" 

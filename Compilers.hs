@@ -133,7 +133,7 @@ generateArchive posts = create ["archive.html"] $ do
       >>= relativizeUrls
 
 generateCategoryPage ::  [Post] -> Category -> Rules ()
-generateCategoryPage posts category = create [fromFilePath $ category ++ "/index.html"] $ do
+generateCategoryPage posts category = create [fromFilePath location] $ do
     route idRoute
     compile $ do
       let context = postListContext "posts" postsInCategory <>
@@ -146,6 +146,7 @@ generateCategoryPage posts category = create [fromFilePath $ category ++ "/index
         >>= loadAndApplyTemplate "templates/default.html" context
         >>= relativizeUrls
   where
+    location = concat ["blog/categories/", category, "/index.html"]
     -- Get all posts in this category.
     postsInCategory = filter ((category `elem`) . categories) posts
 

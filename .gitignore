@@ -11,3 +11,6 @@ gen/*
 _site/*
 _cache/*
 .sass_cache/*
+.sass_cache
+.store
+gen

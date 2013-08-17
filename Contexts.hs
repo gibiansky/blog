@@ -39,7 +39,7 @@ minimalPostContext posts =
         postField fieldName func = field fieldName $ return . func . itemBody
 
         -- Generate HTML for a link to a category page.
-        linkToCategory category = printf "<a href=\"%s\">%s</a>" (blogRoot ++ "/" ++ category) category
+        linkToCategory category = printf "<a href=\"%s/blog/categories/%s\">%s</a>" blogRoot category category
         -- Generate a links to a list of categories.
         makeCategoryLinks post = intercalate ", " $ map linkToCategory $ categories post
 

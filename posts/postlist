@@ -86,7 +86,7 @@ post {
     title "Quadcopter Dynamics and Simulation";
     source quadcopter-dynamics;
     date 2012-11-23;
-    categories physics, simulation;
+    categories physics, simulations;
 }
 
 post {
