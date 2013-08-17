@@ -36,6 +36,7 @@ blog posts = do
   loadTemplates
   copyImages
   copyScripts
+  copyDownloads
   generateStyles
 
   -- Generate everything dependent on the list of posts.

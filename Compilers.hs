@@ -54,7 +54,17 @@ postCompiler posts post = do
 
 -- | Images in the images directory are just copied over directly.
 copyImages ::  Rules ()
-copyImages = match "images/**" $ do
+copyImages = do
+  match "images/**" $ do
+    route   idRoute
+    compile copyFileCompiler
+  match "favicon.ico" $ do
+    route   idRoute
+    compile copyFileCompiler
+
+-- | Copy over all downloadable files.
+copyDownloads ::  Rules ()
+copyDownloads = match "downloads/**" $ do
   route   idRoute
   compile copyFileCompiler
 
@@ -99,7 +109,7 @@ generateHomepage posts = do
     -- Get the most recent posts' image directory and generated HTML.
     lastPost = head posts
     imageSource = printf "%s%s/images" postsDir $ source lastPost
-    htmlSource = printf "%s/%s/index.html" (head $ categories lastPost) $ source lastPost
+    htmlSource = printf "blog/%s/%s/index.html" (head $ categories lastPost) $ source lastPost
 
 -- | Generate pages for all markdown files in pages.
 generatePages ::  [Post] -> Rules ()
@@ -151,7 +161,7 @@ generatePosts posts = mapM_ (generatePost posts) posts
 -- | Generate a single posts page.
 generatePost :: [Post] -> Post -> Rules ()
 generatePost posts post =
-  let outDirectory = concat [head $ categories post, "/", source post, "/"]
+  let outDirectory = concat ["blog/", head $ categories post, "/", source post, "/"]
       inImgDirectory = postsDir ++ source post ++ "/images"
       outImgDirectory = outDirectory ++ "images"
       outHtml = outDirectory ++ "index.html" in

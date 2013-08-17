@@ -1,5 +1,5 @@
 module Posts (
-  Post, Year, Month, Day, Category, PostType (..), source, title, date,
+Post, Year, Month, Day, Category, PostType (..), source, title, date,
   categories, contents, filetype, url, dateString, dayString, postYear,
   postMonth, postDay, postsDir, loadPosts) where
 
@@ -38,7 +38,7 @@ data PostType = Markdown | Latex deriving (Show, Eq)
 data PostMeta = PostMeta FilePath String (Year, Month, Day) [Category]
 
 url :: Post -> String
-url post = blogRoot ++ "/" ++ source post
+url post = concat [blogRoot, "/blog/", head $ categories post, "/", source post]
 
 dateFmt :: String -> Post -> String
 dateFmt fmt post = 
@@ -100,7 +100,7 @@ compareByDate :: Post -> Post -> Ordering
 compareByDate p1 p2 =
   let (y1, m1, d1) = date p1
       (y2, m2, d2) = date p2 in
-    compare y1 y2 <> compare m1 m2 <> compare d1 d2
+    compare y2 y1 <> compare m2 m1 <> compare d2 d1
 
 getPostFile :: FilePath -> IO String
 getPostFile srcdir = do

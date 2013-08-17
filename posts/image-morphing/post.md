@@ -1,4 +1,8 @@
-Image morphing is the process of interpolating between two images in order to create something which looks like a nice blend between the two input images. If you've never played with an image morphing program, go find one - it's certainly an amusing way to spend a few minutes, especially if you have some pictures of family and friends lying around to play with.
+Image morphing is the process of interpolating between two images in order to
+create something which looks like a nice blend between the two input images. If
+you've never played with an image morphing program, go find one - it's
+certainly an amusing way to spend a few minutes, especially if you have some
+pictures of family and friends lying around to play with.
 
 Here's a fun example of image morphing. The creator took a bunch of pictures of women in art and here is the result of nicely morphing them into each other.
 
@@ -57,13 +61,9 @@ $$b = TB + S$$
 $$b = TB + S$$
 
 Where $T$ is a transformation matrix (shear, scale, rotate)
-
-$ \left( \begin{array}{ccc} x & y \\ z & w \end{array} \right)$
-
+$$\left( \begin{array}{ccc} x & y \\ z & w \end{array} \right)$$
 and $S$ is the translation matrix
-
-$ \left( \begin{array}{ccc} m \\ n \end{array} \right).$
-
+$$\left( \begin{array}{ccc} m \\ n \end{array} \right).$$
 Together, these two matrices define a linear transformation.
 
 Since of the equations above dealt with points on a two-dimensional plane, they

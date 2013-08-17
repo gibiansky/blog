@@ -25,3 +25,87 @@ post {
     source fluid-dynamics-the-navier-stokes-equations;
     categories physics, simulations;
 }
+
+post {
+    title "Pricing Stock Options via the Binomial Model";
+    date 2013-05-09;
+    source binomial-options-pricing-model;
+    categories economics;
+}
+
+post {
+    title "Accelerating Options Pricing via Fourier Transforms";
+    date 2013-05-10;
+    source accelerating-options-pricing-via-fourier-transforms;
+    categories economics;
+}
+
+post {
+    title "Cool Linear Algebra: Singular Value Decomposition";
+    date 2013-05-29;
+    source cool-linear-algebra-singular-value-decomposition;
+    categories mathematics;
+}
+
+post {
+    title "Iranian Political Embargoes, and their Non-Existent Impact on Gasoline Prices";
+    source iranian-political-embargoes-and-their-non-existent-impact-on-gasoline-prices;
+    date 2012-03-09;
+    categories economics;
+}
+
+post {
+    title "Machine Learning: the Basics";
+    source machine-learning-the-basics;
+    date 2012-06-03;
+    categories machine-learning;
+}
+
+post {
+    title "Machine Learning: Neural Networks";
+    source machine-learning-neural-networks;
+    date 2012-08-05;
+    categories machine-learning;
+}
+
+post {
+    title "Computing with Transistors";
+    source computing-with-transistors;
+    date 2012-10-29;
+    categories electrical-engineering;
+}
+
+post {
+    title "The Digital State";
+    source the-digital-state;
+    date 2012-11-13;
+    categories electrical-engineering;
+}
+
+post {
+    title "Quadcopter Dynamics and Simulation";
+    source quadcopter-dynamics;
+    date 2012-11-23;
+    categories physics, simulation;
+}
+
+post {
+    title "Digital Design Tools: Verilog and HDLs";
+    source digital-design-tools-verilog-and-hdls;
+    date 2012-11-24;
+    categories electrical-engineering;
+}
+
+post {
+    title "Circuits and Arithmetic";
+    source circuits-and-arithmetic;
+    date 2012-12-09;
+    categories electrical-engineering;
+}
+
+post {
+    title "Your Very First Microprocessor";
+    source your-very-first-microprocessor;
+    date 2012-12-10;
+    categories electrical-engineering;
+}

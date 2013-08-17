@@ -6,5 +6,8 @@ cabal-dev
 *.chs.h
 .virthualenv
 site
+.store/*
+gen/*
 _site/*
 _cache/*
+.sass_cache/*

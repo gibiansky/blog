@@ -46,7 +46,7 @@ neighbors works on a dataset as complex as images of handwritten digits.
 We'll start off with a generic class for doing $k$-nearest neighbors.
 
 
-```python
+~~~ {.python .numberLines}
 class NearestNeighborClassifier(object):
     """A generic k-nearest neighbor predictor.
 
@@ -76,7 +76,7 @@ class NearestNeighborClassifier(object):
         # Predict by averaging the closets k elements.
         prediction = self.consensus([value[1][1] for value in values[0:k]])
         return prediction
-```
+~~~
 
 You'll immediately be able to notice two things. First of all, unlike many other
 models, we don't have any preliminary computations to do! There is no training
@@ -96,7 +96,7 @@ This is definitely suboptimal. We can improve this to $O(kN)$ without much
 difficulty, simply by mimicking the first few steps of [selection sort](http://en.wikipedia.org/wiki/Selection_sort):
 
 
-```python
+~~~ {.python .numberLines}
 def predict(self, point):
     # We have to copy the data set list, because once we've located the best
     # candidate from it, we don't want to see that candidate again, so we'll delete it.
@@ -122,7 +122,7 @@ def predict(self, point):
         
 # Let's go ahead and replace the old implementation.
 NearestNeighborClassifier.predict = predict
-```
+~~~
 
 This is still pretty terrible - if we're predicting thousands of points and have
 a large training data set, this can become pretty slow. But let's ignore that
@@ -140,7 +140,7 @@ We're going to have to deal with the ugly details of MNIST now. I'm providing
 the code below, but there's not much interesting to talk about.
 
 
-```python
+~~~ {.python .numberLines}
 import subprocess
 
 def download(url):
@@ -160,7 +160,7 @@ def get_files():
     return data
 
 data = get_files()
-```
+~~~
 
 Now that we have the binary data, we can try to parse it. The file format used
 is pretty simple. Both the image and label files start with a 32-bit integer
@@ -176,7 +176,7 @@ getting this information and magic numbers from
 [here](http://yann.lecun.com/exdb/mnist/).)
 
 
-```python
+~~~ {.python .numberLines}
 import struct
 from numpy import *
 
@@ -218,12 +218,12 @@ train_images = parse_images(data[0])
 train_labels = parse_labels(data[1])
 test_images = parse_images(data[2])
 test_labels = parse_labels(data[3])
-```
+~~~
 
 Alright, we finally have our data in usable form. Let's look at it, by the way!
 
 
-```python
+~~~ {.python .numberLines}
 from matplotlib.pyplot import *
 
 # Get the figure and axes.
@@ -238,8 +238,7 @@ for axis, index in zip(axes, indices):
     axis.get_xaxis().set_visible(False)
     axis.get_yaxis().set_visible(False)
     axis.imshow(image, cmap = cm.Greys_r)
-
-```
+~~~
 
 ![Example of MNIST data](images/mnist-example-ipy.png)
 
@@ -261,7 +260,7 @@ one way to define the distance between two images, and choosing the best one is
 let's start with the simplest distance possible: Euclidean distance.
 
 
-```python
+~~~ {.python .numberLines}
 def euclidean_distance(img1, img2):
     # Since we're using NumPy arrays, all our operations are automatically vectorized.
     # A breakdown of this expression:
@@ -269,14 +268,14 @@ def euclidean_distance(img1, img2):
     #     (img1 - img2) ** 2 is the same thing, with each value squared
     #     sum((img1 - img2) ** 2) is the sum of the elements in the matrix.
     return sum((img1 - img2) ** 2)
-```
+~~~
 
 One down, one to go. How are we going to take a consensus from all the $k$
 neighbors? This one is easy - just let them vote. Take the majority vote as the
 right answer!
 
 
-```python
+~~~ {.python .numberLines}
 from collections import defaultdict
 def get_majority(votes):
     # For convenience, we're going to use a defaultdict.
@@ -292,13 +291,13 @@ def get_majority(votes):
     for key, value in counter.items():
         if value == majority_count:
             return key
-```
+~~~
 
 Alright, let's finally make our classifier and see how it does. We've done all
 the hard work, now just some boilerplate code.
 
 
-```python
+~~~ {.python .numberLines}
 # Create the predictor class.
 class MNISTPredictor(NearestNeighborClassifier):
     def distance(self, p1, p2):
@@ -316,7 +315,7 @@ for i in xrange(len(train_images)):
 # Create a predictor for various values of k.
 ks = [1, 2, 3, 4, 5, 6]
 predictors = [MNISTPredictor(dataset, k) for k in ks] 
-```
+~~~
 
 Note that we haven't really put any thought into what $k$ should be. Is one a
 good value? What about ten? What about a hundred? The greater $k$, the better
@@ -329,7 +328,7 @@ right now we can just take a look at how it does for several different values of
 $k$.
 
 
-```python
+~~~ {.python .numberLines}
 def predict_test_set(predictor, test_set):
     """Compute the prediction for every element of the test set."""
     predictions = [predictor.predict(test_set[i, :, :]) 
@@ -339,7 +338,7 @@ def predict_test_set(predictor, test_set):
 # Choose a subset of the test set. Otherwise this will never finish.
 test_set = test_images[0:100, :, :]
 all_predictions = [predict_test_set(predictor, test_set) for predictor in predictors]
-```
+~~~
 
 Our classifier is way too slow to run the entire test set. Suppose we did want
 to run every image in of the ten thousand test images through the predictor.
@@ -364,7 +363,7 @@ Let's see how we did. We can compute the accuracy by seeing what percentage each
 predictor got right.
 
 
-```python
+~~~ {.python .numberLines}
 def evaluate_prediction(predictions, answers):
     """Compute how many were identical in the answers and predictions,
     and divide this by the number of predictions to get a percentage."""
@@ -383,8 +382,7 @@ fig.suptitle("Nearest Neighbor Classifier Accuracies")
 fig.axes[0].set_xlabel("k (# of neighbors considered)")
 fig.axes[0].set_ylabel("accuracy (% correct)");
 fig.axes[0].axis([0, max(ks) + 1, 0, 1]);
-
-```
+~~~
 
 ![K-Nearest Neighbor Accuracies](images/knn-accuracies.png)
 
