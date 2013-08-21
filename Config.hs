@@ -15,4 +15,4 @@ googleAnalyticsId :: String
 googleAnalyticsId = "UA-40714888-1" 
 
 serverAddress :: String
-serverAddress = "192.241.208.143"
+serverAddress = "andrew.gibiansky.com"

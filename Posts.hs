@@ -32,7 +32,7 @@ type Month = Int
 type Day = Int
 type Category = String
 
-data PostType = Markdown | Latex deriving (Show, Eq)
+data PostType = Markdown | Latex | IPythonNotebook deriving (Show, Eq)
 
 -- Metadata present in post file.
 data PostMeta = PostMeta FilePath String (Year, Month, Day) [Category]
@@ -93,6 +93,7 @@ getPostType filename
   | endswith ".md" filename = Markdown
   | endswith ".markdown" filename = Markdown
   | endswith ".tex" filename = Latex
+  | endswith ".ipynb" filename = IPythonNotebook
 
 
 -- | Compare two posts by their dates.

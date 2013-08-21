@@ -37,10 +37,17 @@ latexPost = compileWithFilter command arguments
     command = "pandoc"
     arguments = ["-f", "latex", "-t", "html5", "--mathjax", "--highlight-style=pygments"]
 
+-- Compile an IPython notebook using a custom script.
+ipynbPost :: Item String -> Compiler (Item String)
+ipynbPost = compileWithFilter command arguments
+  where command = "notebook-convert"
+        arguments = []
+
 -- | Get the compiler for a type of content.
 compilerFor :: PostType -> Item String -> Compiler (Item String)
 compilerFor Markdown = markdownPost
 compilerFor Latex = latexPost
+compilerFor IPythonNotebook = ipynbPost
 
 -- | Compile a post of any type.
 postCompiler :: [Post] -> Post -> Compiler (Item String)
@@ -76,10 +83,17 @@ copyScripts = match "script/**/*.js" $ do
 
 -- | Generate the CSS from the Compass project.
 generateStyles ::  Rules ()
-generateStyles = match "css/screen.scss" $ do
-  -- Change extension to *.css
-  route $ setExtension "css" 
-  compile compassCompiler
+generateStyles = do
+  match "css/screen.scss" $ do
+    -- Change extension to *.css
+    route $ setExtension "css" 
+    compile compassCompiler
+
+  -- Also copy over any other CSS files.
+  match "css/*.css" $ do
+    -- Change extension to *.css
+    route idRoute
+    compile copyFileCompiler
 
 -- | Load all templates in the template directory.
 loadTemplates ::  Rules ()
@@ -165,12 +179,22 @@ generatePost :: [Post] -> Post -> Rules ()
 generatePost posts post =
   let outDirectory = concat ["blog/", head $ categories post, "/", source post, "/"]
       inImgDirectory = postsDir ++ source post ++ "/images"
+      inDataDirectory = postsDir ++ source post ++ "/data"
       outImgDirectory = outDirectory ++ "images"
+      outDataDirectory = outDirectory ++ "data"
       outHtml = outDirectory ++ "index.html" in
     do
+      -- Copy over files in /images
       match (fromGlob $ inImgDirectory ++ "/**") $ version "post" $ do
         route  $ gsubRoute inImgDirectory (const outImgDirectory)
         compile copyFileCompiler
+
+      -- Copy over files in /data
+      match (fromGlob $ inDataDirectory ++ "/**") $ version "post" $ do
+        route  $ gsubRoute inDataDirectory (const outDataDirectory)
+        compile copyFileCompiler
+
+      -- Create actual post
       create [fromFilePath outHtml] $ do
         route idRoute
         compile $ postCompiler posts post

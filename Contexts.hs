@@ -69,6 +69,8 @@ fullPostContext posts post =
       previousTitle = title <$> previousPost
       nextTitle =     title <$> nextPost
 
+      postTypeField = constField (show $ filetype post) ""
+
       -- Extract all fields that exist from the Maybes.
       extraFields =
         catMaybes [
@@ -83,6 +85,9 @@ fullPostContext posts post =
 
     -- Include recent posts
     postListContext "recentPosts" posts <>
+
+    -- Post type field so templates can specialize
+    postTypeField <>
     
     -- And all new fields introduced above.
     mconcat extraFields <>

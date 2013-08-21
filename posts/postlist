@@ -1,4 +1,11 @@
 post {
+    title "Detecting Genetic Copynumber with Gaussian Mixture Models";
+    date 2013-08-07;
+    source qpcr-blog-post;
+    categories machine-learning, genetics;
+}
+
+post {
     title "K Nearest Neighbors: Simplest Machine Learning";
     date 2013-06-08;
     source k-nearest-neighbors-simplest-machine-learning;

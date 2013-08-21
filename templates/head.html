@@ -95,5 +95,9 @@
   }
   </style>
 
+  $if(IPythonNotebook)$
+  <link href="$root$/css/ipython.css" rel="stylesheet" type="text/css">
+  $endif$
+
   $partial("templates/google_analytics.html")$
 </head>

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Store notebook given as input.
+cat > out.ipynb
+
+# Do the conversion.
+ipython nbconvert --to html --template basic out.ipynb
+
+# Filter out the title <h1> and the paragraph markers.
+cat out.html | sed 's/&#182;//g'
+
+# Get rid of temporary files.
+rm out.html out.ipynb
