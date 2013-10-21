@@ -1,4 +1,11 @@
 post {
+    title "Creating Language Kernels for IPython";
+    date 2013-10-13;
+    source ipython-kernels;
+    categories ipython, haskell;
+}
+
+post {
     title "Detecting Genetic Copynumber with Gaussian Mixture Models";
     date 2013-08-07;
     source qpcr-blog-post;
