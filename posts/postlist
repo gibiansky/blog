@@ -1,8 +1,15 @@
 post {
+    title "Homophony Groups in Haskell";
+    date 2014-01-17;
+    source homophony-groups;
+    categories linguistics, haskell, ihaskell;
+}
+
+post {
     title "Creating Language Kernels for IPython";
     date 2013-10-13;
     source ipython-kernels;
-    categories ipython, haskell;
+    categories ipython, haskell, ihaskell;
 }
 
 post {

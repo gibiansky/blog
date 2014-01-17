@@ -3,8 +3,15 @@
 # Store notebook given as input.
 cat > out.ipynb
 
-# Do the conversion.
-ipython nbconvert --to html --template basic out.ipynb
+# Find out if this is IHaskell.
+if grep -q '"language": "haskell"' out.ipynb
+then
+    # Do the conversion for IHaskell
+    ipython nbconvert --profile haskell --to html --template basic out.ipynb
+else
+    # Do the conversion for IPython.
+    ipython nbconvert --to html --template basic out.ipynb
+fi
 
 # Filter out the title <h1> and the paragraph markers.
 cat out.html | sed 's/&#182;//g'
