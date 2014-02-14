@@ -14,3 +14,5 @@ _cache/*
 .sass_cache
 .store
 gen
+*/.ipynb_checkpoints
+*/.ipynb_checkpoints/*

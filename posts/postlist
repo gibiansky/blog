@@ -1,4 +1,25 @@
 post {
+    title "Hessian Free Optimization";
+    date 2014-02-13;
+    source hessian-free-optimization;
+    categories machine-learning, mathematics;
+}
+
+post {
+    title "Conjugate Gradient";
+    date 2014-02-02;
+    source conjugate-gradient;
+    categories machine-learning, mathematics, haskell, ihaskell;
+}
+
+post {
+    title "Gradient Descent Typeclasses in Haskell";
+    date 2014-01-30;
+    source gradient-descent;
+    categories machine-learning, haskell, ihaskell;
+}
+
+post {
     title "Homophony Groups in Haskell";
     date 2014-01-17;
     source homophony-groups;
