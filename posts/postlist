@@ -1,4 +1,18 @@
 post {
+    title "Convolutional Neural Networks";
+    date 2014-02-24;
+    source convolutional-neural-networks;
+    categories machine-learning;
+}
+
+post {
+    title "Fully Connected Neural Network Algorithms";
+    date 2014-02-17;
+    source fully-connected-neural-networks;
+    categories machine-learning, mathematics;
+}
+
+post {
     title "Hessian Free Optimization";
     date 2014-02-13;
     source hessian-free-optimization;
