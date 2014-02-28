@@ -10,8 +10,9 @@ site
 gen/*
 _site/*
 _cache/*
-.sass_cache/*
-.sass_cache
+.sass-cache/*
+.sass-cache
+.sass-cache/
 .store
 gen
 */.ipynb_checkpoints
