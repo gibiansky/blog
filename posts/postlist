@@ -1,4 +1,25 @@
 post {
+    title "Matrix Multiplication";
+    date 2014-03-30;
+    source matrix-multiplication;
+    categories mathematics, linear-algebra;
+}
+
+post {
+    title "Recurrent Neural Networks";
+    date 2014-03-21;
+    source recurrent-neural-networks;
+    categories machine-learning;
+}
+
+post {
+    title "Gauss Newton Matrix";
+    date 2014-03-05;
+    source gauss-newton-matrix;
+    categories machine-learning;
+}
+
+post {
     title "Convolutional Neural Networks";
     date 2014-02-24;
     source convolutional-neural-networks;
@@ -100,7 +121,7 @@ post {
     title "Cool Linear Algebra: Singular Value Decomposition";
     date 2013-05-29;
     source cool-linear-algebra-singular-value-decomposition;
-    categories mathematics;
+    categories mathematics, linear-algebra;
 }
 
 post {
