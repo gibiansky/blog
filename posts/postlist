@@ -1,4 +1,11 @@
 post {
+    title "Speech Recognition with Neural Networks";
+    date 2014-04-23;
+    source speech-recognition-neural-networks;
+    categories machine-learning;
+}
+
+post {
     title "Matrix Multiplication";
     date 2014-03-30;
     source matrix-multiplication;
