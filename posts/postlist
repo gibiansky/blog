@@ -1,4 +1,11 @@
 post {
+    title "Linguistics and Syntax";
+    date 2014-04-29;
+    source why-syntax;
+    categories linguistics;
+}
+
+post {
     title "Speech Recognition with Neural Networks";
     date 2014-04-23;
     source speech-recognition-neural-networks;
