@@ -20,6 +20,12 @@ may find the [complete IPython messaging protocol](http://ipython.org/ipython-do
 and this [StackOverflow question](http://stackoverflow.com/questions/16240747/sending-messages-from-other-languages-to-an-ipython-kernel)
 useful as well.
 
+**Note:** The links and information in this post are meant to provide a general
+overview. Specifics of the protocols and API have changed since this was
+written (for IPython 2.x protocol), so make sure to carefully read the
+documentation of the protocols. The general picture remains the same, so most
+of the description in this post are still accurate.
+
 
 IPython Architecture
 ===
