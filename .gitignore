@@ -17,3 +17,5 @@ _cache/*
 gen
 */.ipynb_checkpoints
 */.ipynb_checkpoints/*
+.cabal-sandbox
+cabal.sandbox.config
