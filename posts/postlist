@@ -1,4 +1,11 @@
 post {
+    title "Finger Trees";
+    date 2014-09-16;
+    source finger-trees;
+    categories haskell, ihaskell;
+}
+
+post {
     title "Linguistics and Syntax";
     date 2014-04-29;
     source why-syntax;

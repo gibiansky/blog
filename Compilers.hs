@@ -180,8 +180,10 @@ generatePost posts post =
   let outDirectory = concat ["blog/", head $ categories post, "/", source post, "/"]
       inImgDirectory = postsDir ++ source post ++ "/images"
       inDataDirectory = postsDir ++ source post ++ "/data"
+      inFilesDirectory = postsDir ++ source post ++ "/files"
       outImgDirectory = outDirectory ++ "images"
       outDataDirectory = outDirectory ++ "data"
+      outFilesDirectory = outDirectory ++ "files"
       outHtml = outDirectory ++ "index.html" in
     do
       -- Copy over files in /images
@@ -192,6 +194,11 @@ generatePost posts post =
       -- Copy over files in /data
       match (fromGlob $ inDataDirectory ++ "/**") $ version "post" $ do
         route  $ gsubRoute inDataDirectory (const outDataDirectory)
+        compile copyFileCompiler
+
+      -- Copy over files in /files
+      match (fromGlob $ inFilesDirectory ++ "/**") $ version "post" $ do
+        route  $ gsubRoute inFilesDirectory (const outFilesDirectory)
         compile copyFileCompiler
 
       -- Create actual post
