@@ -16,6 +16,7 @@ _cache/*
 .store
 gen
 */.ipynb_checkpoints
+**/.ipynb_checkpoints
 */.ipynb_checkpoints/*
 .cabal-sandbox
 cabal.sandbox.config

@@ -1,4 +1,11 @@
 post {
+    title "Lattice Boltzmann Method";
+    date 2014-12-19;
+    source lattice-boltzmann-method;
+    categories physics, simulations;
+}
+
+post {
     title "Finger Trees";
     date 2014-09-16;
     source finger-trees;
