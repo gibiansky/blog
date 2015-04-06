@@ -102,6 +102,14 @@
 
   $if(IPythonNotebook)$
   <link href="$root$/css/ipython.css" rel="stylesheet" type="text/css">
+  <style>
+div.input_area {
+    border: none;
+}
+div.output_area { display: block; }
+.output_area > .output_subarea { display: inline-block; }
+.output_area > .prompt { display: inline-block; }
+  </style>
   $endif$
 
   $partial("templates/google_analytics.html")$

@@ -1,4 +1,11 @@
 post {
+    title "Writing a SAT Solver";
+    date 2015-04-05;
+    source writing-a-sat-solver;
+    categories verification, haskell;
+}
+
+post {
     title "Lattice Boltzmann Method";
     date 2014-12-19;
     source lattice-boltzmann-method;

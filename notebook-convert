@@ -7,7 +7,7 @@ cat > out.ipynb
 if grep -q '"language": "haskell"' out.ipynb
 then
     # Do the conversion for IHaskell
-    ipython nbconvert --profile haskell --to html --template basic out.ipynb
+    ipython nbconvert --to html --template basic out.ipynb --NbConvertBase.default_language=haskell
 else
     # Do the conversion for IPython.
     ipython nbconvert --to html --template basic out.ipynb
