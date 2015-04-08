@@ -1,4 +1,11 @@
 post {
+    title "Quick Coding Intro to Neural Networks";
+    date 2015-04-08;
+    source coding-intro-to-nns;
+    categories machine-learning;
+}
+
+post {
     title "Writing a SAT Solver";
     date 2015-04-05;
     source writing-a-sat-solver;
