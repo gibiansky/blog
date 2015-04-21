@@ -31,6 +31,16 @@ configuration = defaultConfiguration {
     deployCommand = concat ["rsync gen/* root@", serverAddress, ":/var/www/ --progress --delete --recursive"]
   }
 
+-- Configuration for an RSS feed.
+feedConfiguration :: FeedConfiguration
+feedConfiguration = FeedConfiguration {
+    feedTitle = "Andrew Gibiansky's Technical Blog",
+    feedDescription = "Machine learning, data analysis, mathematics and modeling, physics and simulation, Haskell, and more.",
+    feedAuthorName = "Andrew Gibiansky",
+    feedAuthorEmail = "andrew.gibiansky@gmail.com",
+    feedRoot = "http://www.gibiansky.com"
+  }
+
 blog :: [Post] -> Rules ()
 blog posts = do
   -- General set up, not specific to our posts.
@@ -46,3 +56,4 @@ blog posts = do
   generateHomepage posts
   generatePages posts
   generateArchive posts
+  generateRssFeed feedConfiguration posts

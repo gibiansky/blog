@@ -205,3 +205,26 @@ generatePost posts post =
       create [fromFilePath outHtml] $ do
         route idRoute
         compile $ postCompiler posts post
+
+generateRssFeed :: FeedConfiguration -> [Post] -> Rules ()
+generateRssFeed feedConfiguration posts = create ["feed.rss"] $ do
+  route idRoute
+
+  -- This is horribly hacky! Make a feed item with one bit of info per line.
+  -- Then in the context parse those lines into the different fields.
+  compile $ do
+    let context :: Context String
+        context = constField "description" "" <>
+                  field "title" (return . (!! 0) . lines . itemBody) <>
+                  field "published" (return . (!! 1) . lines . itemBody) <>
+                  field "updated" (return . (!! 1) . lines . itemBody) <>
+                  field "url" (return . (!! 2) . lines . itemBody) <>
+                  globalContext
+
+        mkFeedItem :: Post -> Compiler (Item String)
+        mkFeedItem post = do
+          let url = concat ["/blog/", head $ categories post, "/", source post, "/index.html"]
+          makeItem $ unlines [title post, dateString post, url]
+
+    items <- mapM mkFeedItem posts
+    renderRss feedConfiguration context items
