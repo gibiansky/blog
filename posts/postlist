@@ -1,4 +1,11 @@
 post {
+    title "Your First Haskell Application (with Gloss)";
+    date 2014-06-28;
+    source haskell-gloss;
+    categories haskell;
+}
+
+post {
     title "Intro to Haskell Syntax";
     date 2014-06-08;
     source haskell-syntax;
