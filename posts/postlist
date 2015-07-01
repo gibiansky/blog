@@ -1,4 +1,11 @@
 post {
+    title "Intro to Haskell Syntax";
+    date 2014-06-08;
+    source haskell-syntax;
+    categories haskell;
+}
+
+post {
     title "Quick Coding Intro to Neural Networks";
     date 2015-04-08;
     source coding-intro-to-nns;

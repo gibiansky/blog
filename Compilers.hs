@@ -43,11 +43,19 @@ ipynbPost = compileWithFilter command arguments
   where command = "notebook-convert"
         arguments = []
 
+asciidocPost :: Item String -> Compiler (Item String)
+asciidocPost = compileWithFilter command arguments
+  where 
+    command = "asciidoctor"
+    arguments = ["-s", "-a", "pygments-css=inline", "-"]
+
+
 -- | Get the compiler for a type of content.
 compilerFor :: PostType -> Item String -> Compiler (Item String)
 compilerFor Markdown = markdownPost
 compilerFor Latex = latexPost
 compilerFor IPythonNotebook = ipynbPost
+compilerFor Asciidoc = asciidocPost
 
 -- | Compile a post of any type.
 postCompiler :: [Post] -> Post -> Compiler (Item String)
