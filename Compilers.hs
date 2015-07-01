@@ -47,7 +47,7 @@ asciidocPost :: Item String -> Compiler (Item String)
 asciidocPost = compileWithFilter command arguments
   where 
     command = "asciidoctor"
-    arguments = ["-s", "-a", "pygments-css=inline", "-"]
+    arguments = ["-s", "-a", "pygments-css=inline", "-r", "./undo-replacements-extension.rb", "-r", "./fix-double-colon.rb", "-"]
 
 
 -- | Get the compiler for a type of content.

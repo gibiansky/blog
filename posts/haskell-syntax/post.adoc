@@ -2,6 +2,10 @@
 :source-language: haskell
 :icons: font 
 
+This is the first of several blog posts meant to serve as a crash course in Haskell for someone
+already familiar with programming and somewhat familiar with functional programming. The next post
+can be found http://andrew.gibiansky.com/blog/haskell/haskell-gloss[here].
+
 
 == Getting Started with Haskell
 

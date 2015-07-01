@@ -1,4 +1,18 @@
 post {
+    title "Abstraction in Haskell (Monoids, Functors, Monads)";
+    date 2014-07-27;
+    source haskell-abstractions;
+    categories haskell;
+}
+
+post {
+    title "Typeclasses: Polymorphism in Haskell";
+    date 2014-07-12;
+    source haskell-typeclasses;
+    categories haskell;
+}
+
+post {
     title "Your First Haskell Application (with Gloss)";
     date 2014-06-28;
     source haskell-gloss;

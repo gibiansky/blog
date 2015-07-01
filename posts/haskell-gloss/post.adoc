@@ -3,6 +3,11 @@
 :icons: font 
 :toc: left
 
+This is the second of several blog posts meant to serve as a crash course in Haskell for someone
+already familiar with programming and somewhat familiar with functional programming. The previous
+post in the series was http://andrew.gibiansky.com/blog/haskell/haskell-syntax[here], and the next post
+can be found http://andrew.gibiansky.com/blog/haskell/haskell-typeclasses[here].
+
 In this guide, we'll learn about writing packages and managing dependencies using `cabal`, a Haskell
 build tool, package format, and dependency manager. We'll also get some practice reading and writing
 Haskell code, with the ultimate goal of writing a working and playable game of Pong.
