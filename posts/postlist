@@ -1,4 +1,11 @@
 post {
+    title "CRISPR Gene Editing";
+    date 2015-07-08;
+    source crispr;
+    categories genetics, biology;
+}
+
+post {
     title "Abstraction in Haskell (Monoids, Functors, Monads)";
     date 2014-07-27;
     source haskell-abstractions;

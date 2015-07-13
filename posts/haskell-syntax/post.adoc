@@ -801,14 +801,17 @@ Using record notation, we could rewrite the `data` declaration as follows:
 data Person = Adult {
         age :: Age,
         weight :: Weight,
-        address :: Address
+        address :: Address <1>
     } | Child {
         age :: Age,
         weight :: Weight,
-        parent :: Person <1>
+        parent :: Person <2>
     }
 ----
-<1> An additional benefit of this is that the code is much more self-documenting. We no longer need
+<1> The fields `address` and `parent` are both _partial_, meaning that if you try to get the
+`address` of a `Child` or the `parent` of an `Adult`, you'll get an error. Partial functions will
+be discussed more extensively later!
+<2> An additional benefit of this is that the code is much more self-documenting. We no longer need
 a comment to tell us that the `Person` in the `Child` constructor is the parent, as we've given each
 field of the record an informative name.
 
@@ -825,7 +828,7 @@ a person's location:
 
 [source]
 ----
-location :: Person -> String
+location :: Person -> Address
 location Adult{address = addr} = addr <1>
 location Child{parent = adult} = location adult
 ----
@@ -889,7 +892,7 @@ elements = Node 1 (Node 2 (Node 3 Nil))
 However, because linked lists are so common in functional programming, Haskell has special syntax
 for lists. Instead of `Nil`, you write `[]` (the empty list). Instead of `Node value next`, you
 write `value : next`, with `:` acting as an infix data constructor. In addition, lists of known
-elements can be written naturally with the elements inside braces, separated by commas. The list
+elements can be written naturally with the elements inside square brackets, separated by commas. The list
 of the numbers 1, 2, 3 would just be written `[1, 2, 3]`. Instead of `List a`, the type of a
 list of `a` values is `[a]`. All of the following options are valid and semantically identical:
 
@@ -1269,7 +1272,7 @@ print total
 
 You'll notice that it took quite a while for it to evaluate that statement. Before being able to
 print the value, it had to sum up a list of a million numbers. Try entering `print total` again --
-you'll notice that it runs _much_ faster, not that `total` has been evaluated.
+you'll notice that it runs _much_ faster, now that `total` has been evaluated.
 
 You can inspect the underlying structure of a variable using the GHCi `:sprint` directive. For
 example, if you run
