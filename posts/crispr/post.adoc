@@ -243,7 +243,7 @@ the behaviour of the cell; if a gene is very often transcribed, the generated pr
 dictate the behaviour of the cell.
 
 There are many, many ways to regulate gene expression, ranging from incredibly simple to enormously
-complex systems. Not only can genes can be just "on" or "off", but they can also be part of complex
+complex systems. Not only can genes be just "on" or "off", but they can also be part of complex
 positive and negative feedback loops, with the expression of many genes being intertwined into one
 complex regulatory system.
 
