@@ -232,7 +232,7 @@ generateRssFeed feedConfiguration posts = create ["feed.rss"] $ do
         mkFeedItem :: Post -> Compiler (Item String)
         mkFeedItem post = do
           let url = concat ["/blog/", head $ categories post, "/", source post, "/index.html"]
-          makeItem $ unlines [title post, dateString post, url]
+          makeItem $ unlines [title post, rssDate post, url]
 
     items <- mapM mkFeedItem posts
     renderRss feedConfiguration context items

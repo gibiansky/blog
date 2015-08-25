@@ -1,6 +1,6 @@
 module Posts (
 Post, Year, Month, Day, Category, PostType (..), source, title, date,
-  categories, contents, filetype, url, dateString, dayString, postYear,
+  categories, contents, filetype, url, dateString, dayString, postYear, rssDate,
   postMonth, postDay, postsDir, loadPosts) where
 
 import Config
@@ -10,9 +10,8 @@ import Data.List           (sortBy)
 import Data.Monoid         ((<>))
 import Data.String.Utils   (endswith, startswith)
 import Data.Time.Calendar  (fromGregorian)
-import Data.Time.Format    (formatTime)
+import Data.Time.Format    (formatTime, defaultTimeLocale)
 import System.Directory    (getDirectoryContents)
-import System.Locale       (defaultTimeLocale)
 
 import Text.Parsec
 import Text.Parsec.Perm
@@ -48,6 +47,9 @@ dateFmt fmt post =
 
 dateString :: Post -> String
 dateString = dateFmt "%A, %B %e, %Y"
+
+rssDate :: Post -> String
+rssDate = dateFmt "%e %b %y"
 
 dayString :: Post -> String
 dayString = dateFmt "%b %e"

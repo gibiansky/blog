@@ -99,4 +99,4 @@ fullPostContext posts post =
     -- Utility function for converting Context a to Context String.
     applyContext :: a -> Context a -> Context String
     applyContext val (Context uncontext) = Context newUncontext
-      where newUncontext name _ = makeItem val >>= uncontext name
+      where newUncontext name s _ = makeItem val >>= uncontext name s
