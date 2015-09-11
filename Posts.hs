@@ -49,7 +49,7 @@ dateString :: Post -> String
 dateString = dateFmt "%A, %B %e, %Y"
 
 rssDate :: Post -> String
-rssDate = dateFmt "%e %b %y"
+rssDate = dateFmt "%a, %e %b %Y 00:00:00"
 
 dayString :: Post -> String
 dayString = dateFmt "%b %e"
