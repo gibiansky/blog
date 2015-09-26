@@ -1,4 +1,11 @@
 post {
+    title "Molecular Biology Technique Primers";
+    date 2015-09-25;
+    source technique-primers;
+    categories genetics, biology;
+}
+
+post {
     title "CRISPR Gene Editing";
     date 2015-07-08;
     source crispr;
