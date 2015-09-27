@@ -1,4 +1,11 @@
 post {
+    title "Creating a Culture of Good Engineering";
+    date 2015-09-30;
+    source engineering-practices;
+    categories thoughts;
+}
+
+post {
     title "Molecular Biology Technique Primers";
     date 2015-09-25;
     source technique-primers;
