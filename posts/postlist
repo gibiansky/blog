@@ -6,7 +6,7 @@ post {
 }
 
 post {
-    title "Molecular Biology Technique Primers";
+    title "Common Techniques in Molecular Biology";
     date 2015-09-25;
     source technique-primers;
     categories genetics, biology;
