@@ -1,4 +1,11 @@
 post {
+    title "jq Primer: Munging JSON Data";
+    date 2015-12-24;
+    source jq-primer;
+    categories command-line;
+}
+
+post {
     title "Creating a Culture of Good Engineering";
     date 2015-09-30;
     source engineering-practices;
