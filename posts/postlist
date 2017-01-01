@@ -1,4 +1,18 @@
 post {
+    title "NRAM: Theano Implementation";
+    date 2016-06-05;
+    source nram-2;
+    categories machine-learning;
+}
+
+post {
+    title "NRAM: Neural Random Access Memory";
+    date 2016-06-04;
+    source nram-1;
+    categories machine-learning;
+}
+
+post {
     title "jq Primer: Munging JSON Data";
     date 2015-12-24;
     source jq-primer;
