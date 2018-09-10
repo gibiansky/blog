@@ -1,4 +1,11 @@
 post {
+    title "Bringing HPC Techniques to Deep Learning";
+    date 2017-02-21;
+    source baidu-allreduce;
+    categories machine-learning;
+}
+
+post {
     title "NRAM: Theano Implementation";
     date 2016-06-05;
     source nram-2;
